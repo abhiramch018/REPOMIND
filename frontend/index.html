@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RepoMind — AI Code Explorer</title>
+    <meta name="description" content="Analyze any GitHub repository and ask AI-powered questions about the codebase." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <div class="app">
+        <!-- ── Header ──────────────────────────────────────────────── -->
+        <header class="header">
+            <div class="header__brand">
+                <div class="header__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="header__title">RepoMind</h1>
+                    <p class="header__subtitle">AI-Powered Code Explorer</p>
+                </div>
+            </div>
+            <div class="header__status" id="statusBadge">
+                <span class="status-dot"></span>
+                <span class="status-text">Ready</span>
+            </div>
+        </header>
+
+        <!-- ── Repo Input Bar ──────────────────────────────────────── -->
+        <div class="repo-bar glass-panel">
+            <div class="repo-bar__input-group">
+                <svg class="repo-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                </svg>
+                <input
+                    type="url"
+                    id="repoUrl"
+                    class="repo-bar__input"
+                    placeholder="Paste a GitHub repository URL…"
+                    autocomplete="off"
+                />
+                <button id="analyzeBtn" class="btn btn--primary" onclick="analyzeRepo()">
+                    <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <span>Analyze</span>
+                </button>
+            </div>
+            <div class="repo-bar__info" id="repoInfo"></div>
+        </div>
+
+        <!-- ── Chat Area ───────────────────────────────────────────── -->
+        <main class="chat glass-panel" id="chatContainer">
+            <div class="chat__messages" id="messages">
+                <div class="welcome">
+                    <div class="welcome__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h2 class="welcome__title">Welcome to RepoMind</h2>
+                    <p class="welcome__text">
+                        Paste a GitHub repository link above and click <strong>Analyze</strong>
+                        to get started. Once indexed, you can ask anything about the codebase.
+                    </p>
+                    <div class="welcome__features">
+                        <div class="feature-card">
+                            <div class="feature-card__icon">🔍</div>
+                            <div class="feature-card__label">Code Search</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">🏗️</div>
+                            <div class="feature-card__label">Architecture</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">🐛</div>
+                            <div class="feature-card__label">Debug Help</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">📖</div>
+                            <div class="feature-card__label">Explanations</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ── Question Input ──────────────────────────────────────── -->
+        <div class="input-bar glass-panel" id="inputBar">
+            <input
+                type="text"
+                id="questionInput"
+                class="input-bar__input"
+                placeholder="Ask a question about the codebase…"
+                disabled
+                autocomplete="off"
+            />
+            <button id="askBtn" class="btn btn--accent" onclick="askQuestion()" disabled>
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
